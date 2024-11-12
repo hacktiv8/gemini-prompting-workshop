@@ -8,11 +8,11 @@ latest:generateContent?key=${process.env.API_KEY}`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: instruction(prompt) }] }],
+        contents: [{ parts: [{ text: prompt }] }],
         generation_config: {
           temperature: 0,
-          top_p: 0.9,
-          top_k: 20,
+          top_p: 1.0,
+          top_k: 40,
         },
       }),
     });
