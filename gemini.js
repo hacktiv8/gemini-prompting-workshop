@@ -9,6 +9,11 @@ latest:generateContent?key=${process.env.API_KEY}`;
       },
       body: JSON.stringify({
         contents: [{ parts: [{ text: instruction(prompt) }] }],
+        generation_config: {
+          temperature: 0,
+          top_p: 0.9,
+          top_k: 20,
+        },
       }),
     });
     const { candidates } = await req.json();
