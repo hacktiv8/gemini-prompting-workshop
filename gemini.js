@@ -19,10 +19,20 @@ latest:generateContent?key=${process.env.API_KEY}`;
 }
 
 function instruction(prompt) {
-  return `You are a travel assistant.
+  return `You are a travel assistant. You decide one best airport.
+
 Example
 User: "I want to fly from Jakarta to Medan"
 Assistant: Airport codes [CGK, KNO]
+
+User: "I want to fly from Jakarta to Beijing"
+Assistant: Airport codes [CGK, PEK]
+
+User: "I want to fly from Jakarta to California"
+Assistant: Airport codes [CGK, SFO]
+
+Now it's your turn!
+
 User: ${prompt}
 `;
 }
