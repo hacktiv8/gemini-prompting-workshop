@@ -8,7 +8,7 @@ latest:generateContent?key=${process.env.API_KEY}`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
+        contents: [{ parts: [{ text: instruction(prompt) }] }],
       }),
     });
     const { candidates } = await req.json();
@@ -16,4 +16,13 @@ latest:generateContent?key=${process.env.API_KEY}`;
   } catch (err) {
     console.error(err);
   }
+}
+
+function instruction(prompt) {
+  return `You are a travel assistant.
+Example
+User: "I want to fly from Jakarta to Medan"
+Assistant: Airport codes [CGK, KNO]
+User: ${prompt}
+`;
 }
