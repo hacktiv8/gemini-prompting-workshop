@@ -1,3 +1,9 @@
+export async function analyze(feedback) {
+  return {
+    color: "red",
+    analysis: "Analyzing...",
+  };
+}
 export async function generate(prompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-
 latest:generateContent?key=${process.env.API_KEY}`;
