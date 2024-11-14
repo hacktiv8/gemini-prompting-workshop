@@ -18,7 +18,7 @@ app.post("/add", async (c) => {
   console.log({ color, analysis });
 
   return c.html(
-    html`<article id="sentiment" class="pico-background-${color}-50">
+    html`<article id="sentiment" class="pico-background-${color}-100">
       ${analysis}
     </article>`,
   );

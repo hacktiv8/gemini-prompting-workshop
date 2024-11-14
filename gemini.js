@@ -1,9 +1,31 @@
 export async function analyze(feedback) {
-  return {
-    color: "red",
-    analysis: "Analyzing...",
-  };
+  const result = await generate(instruction(feedback));
+  let value = {};
+
+  switch (result.trim()) {
+    case "Positive":
+      value = {
+        color: "cyan",
+        analysis: result,
+      };
+      console.log(value);
+      break;
+    case "Negative":
+      value = {
+        color: "fuchsia",
+        analysis: result,
+      };
+      break;
+    default:
+      value = {
+        color: "zinc",
+        analysis: result,
+      };
+      break;
+  }
+  return value;
 }
+
 export async function generate(prompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-
 latest:generateContent?key=${process.env.API_KEY}`;
@@ -30,20 +52,22 @@ latest:generateContent?key=${process.env.API_KEY}`;
 }
 
 function instruction(prompt) {
-  return `You are a travel assistant. You decide one best airport.
+  return `Your job is to categorize whether text has a positive or negative sentiment. Just return either Positive, Negative or Neutral. Here are some examples of text you might see:
 
-Example
-User: "I want to fly from Jakarta to Medan"
-Assistant: Airport codes [CGK, KNO]
-
-User: "I want to fly from Jakarta to Beijing"
-Assistant: Airport codes [CGK, PEK]
-
-User: "I want to fly from Jakarta to California"
-Assistant: Airport codes [CGK, SFO]
+User: I love this product! It's the best thing I've ever bought.
+Assistant: Positive
+User: Bagus sekali.
+Assistant: Positive
+User: Boring. Next.
+Assistant: Negative
+User: Meh..
+Assistant: Neutral
+User: Could be better.
+Assistant: Neutral
 
 Now it's your turn!
 
 User: ${prompt}
+Assistant:
 `;
 }
